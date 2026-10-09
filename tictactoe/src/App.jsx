@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 function Square({value, onSquareClick, isWinning}){
   return <button 
-  className={isWinning ? "square winning-square" : "square"} 
+  className={isWinning ? "square winning-square" : "square"} //if there is a winner highlight boxes
   onClick={onSquareClick}>{value}</button>
 }
 
@@ -22,7 +22,7 @@ function Board({xIsNext, squares, onPlay}) {
   if(result){
     status = "Winner: " + result.winner;
   }
-  else if (squares.every((square) => square !== null)){
+  else if (squares.every((square) => square !== null)){//if every square is full, and no winner, draw
     status = "The game is a draw!";
   }
   else {
@@ -33,9 +33,9 @@ function Board({xIsNext, squares, onPlay}) {
     <div className="status">
       {status}
     </div>
-    {Array(3).fill(null).map((_, row) => (
+    {Array(3).fill(null).map((_, row) => (//first loop
       <div className="board-row" key={row}>
-        {Array(3).fill(null).map((_,col) => {
+        {Array(3).fill(null).map((_,col) => {//second loop
           const i = row * 3 + col;
           return(
             <Square key={i} value={squares[i]} onSquareClick={()=> handleClick(i)}
@@ -77,8 +77,8 @@ function Game(){
         (square, i) => square !== previousSquares[i]
       );
 
-      const row = Math.floor(changedIndex / 3) + 1;
-      const col = (changedIndex % 3) + 1;
+      const row = Math.floor(changedIndex / 3) + 1;//find row
+      const col = (changedIndex % 3) + 1;//find col
 
       location = `(${row}, ${col})`;
     }
